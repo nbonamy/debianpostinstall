@@ -34,7 +34,7 @@ WITH_PAGESPEED="TRUE"
 
 # Current NGinx version
 NGINX_LEGACY_VERSION="1.2.9"
-NGINX_STABLE_VERSION="1.4.4"
+NGINX_STABLE_VERSION="1.4.5"
 NGINX_DEV_VERSION="1.5.9"
 
 # PageSpeed version
@@ -51,7 +51,7 @@ displaymessage() {
 
 displaytitle() {
   displaymessage "------------------------------------------------------------------------------"
-  displaymessage "$*"  
+  displaymessage "$*"
   displaymessage "------------------------------------------------------------------------------"
 
 }
@@ -171,7 +171,7 @@ then
   # Ajout DotDeb package (http://www.dotdeb.org/)
   grep -rq '^deb\ .*packages\.dotdeb' /etc/apt/sources.list.d/*.list /etc/apt/sources.list > /dev/null 2>&1
   if [ $? -ne 0 ]
-  then  
+  then
     echo -e "\n## DotDeb Package\ndeb http://packages.dotdeb.org wheezy all\ndeb-src http://packages.dotdeb.org wheezy all\n" >> /etc/apt/sources.list
   fi
 
@@ -182,7 +182,7 @@ then
   # Ajout DotDeb package (http://www.dotdeb.org/)
   grep -rq '^deb\ .*packages\.dotdeb' /etc/apt/sources.list.d/*.list /etc/apt/sources.list > /dev/null 2>&1
   if [ $? -ne 0 ]
-  then  
+  then
     echo -e "\n## DotDeb Package\ndeb http://packages.dotdeb.org squeeze all\ndeb-src http://packages.dotdeb.org squeeze all\n" >> /etc/apt/sources.list
   fi
 
@@ -192,7 +192,7 @@ else
   # Ajout DotDeb package (http://www.dotdeb.org/)
   grep -rq '^deb\ .*packages\.dotdeb' /etc/apt/sources.list.d/*.list /etc/apt/sources.list > /dev/null 2>&1
   if [ $? -ne 0 ]
-  then  
+  then
     echo -e "\n## DotDeb Package\ndeb http://packages.dotdeb.org oldstable all\ndeb-src http://packages.dotdeb.org oldstable all\n" >> /etc/apt/sources.list
   fi
 
@@ -210,8 +210,8 @@ displayandexec "Update the repositories list" $APT_GET update
 
 # Pre-requis
 displayandexec "Install development tools" $APT_GET install build-essential libpcre3-dev libssl-dev zlib1g-dev php5-dev unzip
-displayandexec "Install PHP-FPM5" $APT_GET install php5-cli php5-common php5-mysql php5-fpm php-pear php5-gd php5-curl
-displayandexec "Install MemCached" $APT_GET install libcache-memcached-perl php5-memcache memcached
+displayandexec "Install PHP-FPM5" $APT_GET install php5-cli php5-common php5-mysql php5-fpm php-pear php5-gd php5-curl php5-mcrypt
+# displayandexec "Install MemCached" $APT_GET install libcache-memcached-perl php5-memcache memcached
 # displayandexec "Install Redis" $APT_GET install redis-server php5-redis
 if [[ $NGINX_DEPS != "" ]]; then
   displayandexec "Install NGinx dependencies" $APT_GET install $NGINX_DEPS
@@ -286,11 +286,11 @@ fi
 # Nginx + default site
 if [ $TAGINSTALL == 1 ]
 then
-	displayandexec "Init the default configuration file for NGinx" "$WGET https://raw.github.com/nicolargo/debianpostinstall/master/nginx.conf ; $WGET https://raw.github.com/nicolargo/debianpostinstall/master/default-site ; mv nginx.conf /etc/nginx/ ; mv default-site /etc/nginx/sites-enabled/"
+	displayandexec "Init the default configuration file for NGinx" "$WGET https://raw.github.com/nbonamy/debianpostinstall/master/nginx.conf ; $WGET https://raw.github.com/nbonamy/debianpostinstall/master/default-site ; mv nginx.conf /etc/nginx/ ; mv default-site /etc/nginx/sites-enabled/"
 fi
 
 # Download the init script
-displayandexec "Install the NGinx init script" "$WGET https://raw.github.com/nicolargo/debianpostinstall/master/nginx ; mv nginx /etc/init.d/ ; chmod 755 /etc/init.d/nginx ; /usr/sbin/update-rc.d -f nginx defaults"
+displayandexec "Install the NGinx init script" "$WGET https://raw.github.com/nbonamy/debianpostinstall/master/nginx ; mv nginx /etc/init.d/ ; chmod 755 /etc/init.d/nginx ; /usr/sbin/update-rc.d -f nginx defaults"
 
 # Log file rotate
 cat > /etc/logrotate.d/nginx <<EOF
@@ -328,7 +328,7 @@ if [[ $WITH_NAXSI == "TRUE" ]]; then
     echo "Read this to configure Naxsi:     https://github.com/nbs-system/naxsi/wiki/basicsetup"
 fi
 if [[ $WITH_PAGESPEED == "TRUE" ]]; then
-    echo "PageSpeed cache directory:        $PAGESPEED_CACHE_DIR"  
+    echo "PageSpeed cache directory:        $PAGESPEED_CACHE_DIR"
     echo "Read this to configure PageSpeed: https://developers.google.com/speed/pagespeed/module/configuration"
 fi
 echo ""

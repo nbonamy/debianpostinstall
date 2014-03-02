@@ -15,7 +15,7 @@ server {
                  # More on this serious security concern in the "Pass Non-PHP Requests to PHP" section, there http://wiki.nginx.org/Pitfalls
                  try_files $uri =404;
 
-                 fastcgi_pass   127.0.0.1:9000;
+                 fastcgi_pass   unix:/var/run/php5-fpm.sock;
                  fastcgi_index  index.php;
                  include fastcgi_params;
                  fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
@@ -27,10 +27,10 @@ server {
         }
 
 	# Stuffs
-	location = /favicon.ico {
-		access_log	 off;
-		return	 204;
-	}
+	#location = /favicon.ico {
+	#	access_log	 off;
+	#	return	 204;
+	#}
 
 	location ~* ^.+\.(jpg|jpeg|gif|css|png|js|xml)$ {
 		expires 	30d;
