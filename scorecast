@@ -43,7 +43,7 @@ server {
 		access_log	off;
 	}
 
-	location ~* ^.+\.(jpg|jpeg|gif|css|png|js|xml)$ {
+	location ~* ^.+\.(jpg|jpeg|gif|css|png|js|xml|woff|eot|ttf)$ {
 		expires					30d;
 		#access_log			off;
 	}
