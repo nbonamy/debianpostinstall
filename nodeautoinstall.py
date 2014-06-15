@@ -217,8 +217,8 @@ def main(argv):
 	                output_path = arg
 
         showexec ("Install pre-requisites", "apt-get install g++")
-        showexec ("Download NodeJS", "rm -rf ~/nodeautoinstall.files && mkdir -p ~/nodeautoinstall.files && cd ~/nodeautoinstall.files && wget -N http://nodejs.org/dist/node-latest.tar.gz")
-        showexec ("Install NodeJS (please wait...)", "cd ~/nodeautoinstall.files && tar zxvf node-latest.tar.gz && cd ~/nodeautoinstall.files/node-v* && ./configure --prefix="+output_path+" && make install")
+        showexec ("Download NodeJS", "rm -rf ~/nodeautoinstall.files && mkdir -p ~/nodeautoinstall.files && cd ~/nodeautoinstall.files && wget -N http://nodejs.org/dist/v0.10.29/node-v0.10.29.tar.gz")
+        showexec ("Install NodeJS (please wait...)", "cd ~/nodeautoinstall.files && tar zxvf node-v0.10.29.tar.gz && cd ~/nodeautoinstall.files/node-v* && ./configure --prefix="+output_path+" && make install")
         # showexec ("Add PATH to current username", "echo 'export PATH=$PATH:"+output_path+"/bin' >> ~/.profile")
         # showexec ("Add NODE_PATH to current username", "echo 'export NODE_PATH="+output_path+":"+output_path+"/lib/node_modules' >> ~/.profile")
         # showexec ("Install NPM", "curl http://npmjs.org/install.sh | sh -c 'export PATH=$PATH:"+output_path+"/bin ; export NODE_PATH="+output_path+":"+output_path+"/lib/node_modules'")
